@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Average Marks</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: lightblue;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 80%;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>STUDENT MARKS MEMO</h2>
+
+    <label>Student Name:</label>
+    <input type="text" id="name" placeholder="Enter Student Name">
+
+    <h3>Enter 5 Subject Marks</h3>
+
+    <input type="number" id="s1" placeholder="Subject 1 Marks">
+    <input type="number" id="s2" placeholder="Subject 2 Marks">
+    <input type="number" id="s3" placeholder="Subject 3 Marks">
+    <input type="number" id="s4" placeholder="Subject 4 Marks">
+    <input type="number" id="s5" placeholder="Subject 5 Marks">
+
+    <br><br>
+
+    <button onclick="calculateAverage()">
+        Calculate Average
+    </button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+
+function calculateAverage() {
+
+    let name = document.getElementById("name").value;
+
+    let m1 = document.getElementById("s1").value;
+    let m2 = document.getElementById("s2").value;
+    let m3 = document.getElementById("s3").value;
+    let m4 = document.getElementById("s4").value;
+    let m5 = document.getElementById("s5").value;
+
+    if (name.trim() === "" ||
+        m1 === "" || m2 === "" ||
+        m3 === "" || m4 === "" || m5 === "") {
+
+        alert("Please enter student name and all subject marks");
+        return;
+    }
+
+    let marks = [m1, m2, m3, m4, m5].map(Number);
+
+    for (let mark of marks) {
+        if (!Number.isFinite(mark) || mark < 0 || mark > 100) {
+            alert("Please enter marks between 0 and 100");
+            return;
+        }
+    }
+
+    let total = marks.reduce((sum, mark) => sum + mark, 0);
+
+    let average = total / 5;
+
+    let percentage = (total / 500) * 100;
+
+    let grade;
+
+    if (average >= 90)
+        grade = "A";
+    else if (average >= 80)
+        grade = "B";
+    else if (average >= 70)
+        grade = "C";
+    else if (average >= 60)
+        grade = "D";
+    else if (average >= 50)
+        grade = "E";
+    else
+        grade = "F";
+
+    document.getElementById("result").innerHTML =
+
+        "<h3>RESULT</h3>" +
+        "Student Name: " + name + "<br><br>" +
+        "Total Marks: " + total + " / 500<br><br>" +
+        "Average Marks: " + average.toFixed(2) + "<br><br>" +
+        "Percentage: " + percentage.toFixed(2) + "%<br><br>" +
+        "Grade: " + grade;
+
+}
+
+</script>
+
+</body>
+</html>
